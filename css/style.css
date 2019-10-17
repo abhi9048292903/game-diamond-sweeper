@@ -62,7 +62,5 @@ header {
     width: 100%;
     border-width: 1px;
     margin-top: 16px; }
-    .game-container .game-box {
-      background-position: 0px !important; }
-      .game-container .game-box .hint-arrow {
-        left: 20%; } }
+    .game-container .game-box .hint-arrow {
+      left: 20%; } }
