@@ -37,7 +37,6 @@
                 randomPositions.push(`box-${61 + j}`);
             }
         }
-        console.log('positons ', randomPositions)
     }
 
     function gameInit() {
