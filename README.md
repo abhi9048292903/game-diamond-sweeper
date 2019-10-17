@@ -5,7 +5,7 @@ Grid table with hidden diamonds find the diamond
 * Basic javascript, html, scss, sass-preprocessor
 * npm
 ## Game concept
-Diamond sweeper in dark mode game
+Diamond sweeper
 
 ## Steps to start development
 Requirements:

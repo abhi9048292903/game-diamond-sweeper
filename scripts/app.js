@@ -64,15 +64,32 @@
                 gridbox.style.backgroundSize = `${backgroundImgs['bg-size']}`;
                 gridbox.style.backgroundRepeat = `${backgroundImgs['bg-repeat']}`;
                 // appending neighbour hint for diamond
-                let neighbour = Number(boxid.split('-')[1]) - 1;
-                if (neighbour >= 1 && neighbour % 8 != 0) {
-                    if (!randomPositions.includes(`box-${neighbour}`)) {
-                        let hintBox = document.getElementById(`box-${neighbour}`);
-                        let hintSpan = document.createElement('span');
-                        hintSpan.className = 'hint-arrow';
-                        hintBox.appendChild(hintSpan);
+                let cPst = Number(boxid.split('-')[1]);
+                let ngbrList = [cPst - 1, cPst + 1, cPst - 8, cPst + 8];
+
+                for (let k = 0; k < ngbrList.length; k++) {
+                    let neighbour = Number(ngbrList[k]);
+                    if (1 <= neighbour <= 64) {
+                        if (!randomPositions.includes(`box-${neighbour}`)) {
+                            let hintBox = document.getElementById(`box-${neighbour}`);
+                            if (hintBox != null) {
+                                if (!hintBox.hasChildNodes()) {
+                                    let hintSpan = document.createElement('span');
+                                    hintSpan.className = 'hint-arrow';
+                                    if (k == 1) {
+                                        hintSpan.classList.add('left-arrow')
+                                    } else if (k == 2) {
+                                        hintSpan.classList.add('bottom-arrow')
+                                    } else if (k == 3) {
+                                        hintSpan.classList.add('top-arrow')
+                                    }
+                                    hintBox.appendChild(hintSpan);
+                                }
+                            }
+                        }
                     }
                 }
+
 
             } else {
                 gridbox.style.backgroundImage = `url(${backgroundImgs['bg-question-img']})`;
@@ -99,9 +116,20 @@
         let audioElements = document.getElementsByClassName('audio-section')[0]
         if (randomPositions.includes(id)) {
             flipCount++;
-            selectedItem.style.backgroundColor = '#2B91FF';
+            selectedItem.style.backgroundColor = '#3772FF';
             if (flipCount !== 8) {
                 selectedItem.style.backgroundPosition = `${backgroundImgs['bg-diamond-position']},${backgroundImgs['bg-question-position']}`
+                    // remove the hint
+                let cPst = Number(id.split('-')[1]);
+                let hintBoxList = [cPst - 1, cPst + 1, cPst - 8, cPst + 8];
+                for (let l = 0; l < hintBoxList.length; l++) {
+                    let hintBox = document.getElementById(`box-${Number(hintBoxList[l])}`)
+                    if (hintBox != null) {
+                        if (hintBox.hasChildNodes()) {
+                            hintBox.innerHTML = '';
+                        }
+                    }
+                }
             } else {
                 selectedItem.style.backgroundPosition = `${backgroundImgs['bg-diamond-position']},${backgroundImgs['bg-question-position']}`
                 selectedItem.removeEventListener('click', flipImage);
